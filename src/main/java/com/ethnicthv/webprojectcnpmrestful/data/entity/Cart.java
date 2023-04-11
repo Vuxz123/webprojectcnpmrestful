@@ -1,12 +1,14 @@
-package com.ethnicthv.webprojectcnpmrestful.entity;
+package com.ethnicthv.webprojectcnpmrestful.data.entity;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Document(collection = "carts")
 @SuppressWarnings("unused")
 public class Cart {
-    public static long id_now = 0;
+    @Id
     private long id;
     private List<ProductInCart> products;
     private int total;
@@ -16,22 +18,12 @@ public class Cart {
     private int totalQuantity;
 
     public Cart(String userId) {
-        id = id_now;
-        id_now++;
         products = new ArrayList<>();
         total = 0;
         discountedTotal = 0;
         this.userId = userId;
         totalProducts = 0;
         totalQuantity = 0;
-    }
-
-    public static long getId_now() {
-        return id_now;
-    }
-
-    public static void setId_now(long id_now) {
-        Cart.id_now = id_now;
     }
 
     public long getId() {

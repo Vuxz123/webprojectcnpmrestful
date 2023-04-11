@@ -1,4 +1,4 @@
-package com.ethnicthv.webprojectcnpmrestful.entity;
+package com.ethnicthv.webprojectcnpmrestful.data.entity;
 
 @SuppressWarnings("unused")
 public class ProductInCart {

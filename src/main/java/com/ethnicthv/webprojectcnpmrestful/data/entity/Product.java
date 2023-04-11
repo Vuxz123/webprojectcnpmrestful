@@ -1,7 +1,12 @@
-package com.ethnicthv.webprojectcnpmrestful.entity;
+package com.ethnicthv.webprojectcnpmrestful.data.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "products")
 @SuppressWarnings("unused")
 public class Product {
+    @Id
     private long id;
     private String title;
     private String description;
@@ -13,8 +18,7 @@ public class Product {
     private String thumbnail;
     private String[] images;
 
-    public Product(long id, String title, String description, float discountPercentage, float rating, int stock, String brand, String category, String thumbnail, String[] images) {
-        this.id = id;
+    public Product(String title, String description, float discountPercentage, float rating, int stock, String brand, String category, String thumbnail, String[] images) {
         this.title = title;
         this.description = description;
         this.discountPercentage = discountPercentage;
@@ -24,6 +28,10 @@ public class Product {
         this.category = category;
         this.thumbnail = thumbnail;
         this.images = images;
+    }
+
+    public Product() {
+
     }
 
     public long getId() {
