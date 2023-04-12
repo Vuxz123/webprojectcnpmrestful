@@ -1,4 +1,5 @@
 package com.ethnicthv.webprojectcnpmrestful.data.entity;
+import com.ethnicthv.webprojectcnpmrestful.data.entity.io.ProductInCart;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -82,7 +83,7 @@ public class Cart {
     public String toString() {
         return "Cart{" +
                 "id=" + id +
-                ", products=" + products +
+                ", products.json=" + products +
                 ", total=" + total +
                 ", discountedTotal=" + discountedTotal +
                 ", userId=" + userId +
