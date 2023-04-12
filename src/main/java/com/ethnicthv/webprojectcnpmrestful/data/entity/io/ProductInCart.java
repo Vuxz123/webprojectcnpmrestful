@@ -1,8 +1,10 @@
 package com.ethnicthv.webprojectcnpmrestful.data.entity.io;
 
+import java.util.Objects;
+
 @SuppressWarnings("unused")
 public class ProductInCart {
-    private float id;
+    private long id;
     private String title;
     private float price;
     private int quantity;
@@ -10,7 +12,7 @@ public class ProductInCart {
     private float discountPercentage;
     private float discountedPrice;
 
-    public ProductInCart(float id, String title, float price, int quantity, float total, float discountPercentage, float discountedPrice) {
+    public ProductInCart(long id, String title, float price, int quantity, float total, float discountPercentage, float discountedPrice) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -20,11 +22,11 @@ public class ProductInCart {
         this.discountedPrice = discountedPrice;
     }
 
-    public float getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(float id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -87,5 +89,18 @@ public class ProductInCart {
                 ", discountPercentage=" + discountPercentage +
                 ", discountedPrice=" + discountedPrice +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductInCart that = (ProductInCart) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

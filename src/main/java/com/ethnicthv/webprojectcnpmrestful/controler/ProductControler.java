@@ -1,6 +1,7 @@
 package com.ethnicthv.webprojectcnpmrestful.controler;
 
 import com.ethnicthv.webprojectcnpmrestful.data.entity.Product;
+import com.ethnicthv.webprojectcnpmrestful.data.entity.io.ProductDeleted;
 import com.ethnicthv.webprojectcnpmrestful.data.service.ProductService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,12 @@ public class ProductControler {
     public ResponseEntity<Product> partialUpdateProduct(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
         Product updatedProduct = productService.partialUpdateProduct(id, fields);
         return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ProductDeleted> deletedProduct(@PathVariable Long id) {
+        var deletedProduct = productService.deleteProduct(id);
+        return new ResponseEntity<>(deletedProduct, HttpStatus.OK);
     }
 
     @GetMapping("test")

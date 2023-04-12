@@ -2,8 +2,9 @@ package com.ethnicthv.webprojectcnpmrestful.data.repository;
 
 import com.ethnicthv.webprojectcnpmrestful.data.entity.Cart;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+
+import java.util.Optional;
 
 public interface CartRepository extends MongoRepository<Cart, Long> {
-    Cart findCartByUserId(String userId);
+    Optional<Cart> findCartByUserId(String userId);
 }

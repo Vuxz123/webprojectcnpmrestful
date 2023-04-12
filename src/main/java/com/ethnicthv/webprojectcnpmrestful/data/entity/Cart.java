@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Document(collection = "carts")
 @SuppressWarnings("unused")
@@ -14,17 +15,31 @@ public class Cart {
     private List<ProductInCart> products;
     private int total;
     private float discountedTotal;
-    private final String userId;
+    private String userId;
     private int totalProducts;
     private int totalQuantity;
 
-    public Cart(String userId) {
-        products = new ArrayList<>();
-        total = 0;
-        discountedTotal = 0;
+    public Cart(long id, List<ProductInCart> products, int total, float discountedTotal, String userId, int totalProducts, int totalQuantity) {
+        this.id = id;
+        this.products = products;
+        this.total = total;
+        this.discountedTotal = discountedTotal;
         this.userId = userId;
-        totalProducts = 0;
-        totalQuantity = 0;
+        this.totalProducts = totalProducts;
+        this.totalQuantity = totalQuantity;
+    }
+
+    public Cart(String userId) {
+        this.products = new ArrayList<>();
+        this.total = 0;
+        this.discountedTotal = 0;
+        this.userId = userId;
+        this.totalProducts = 0;
+        this.totalQuantity = 0;
+    }
+
+    public Cart() {
+
     }
 
     public long getId() {
@@ -79,6 +94,10 @@ public class Cart {
         return userId;
     }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Cart{" +
@@ -90,5 +109,18 @@ public class Cart {
                 ", totalProducts=" + totalProducts +
                 ", totalQuantity=" + totalQuantity +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cart cart = (Cart) o;
+        return id == cart.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

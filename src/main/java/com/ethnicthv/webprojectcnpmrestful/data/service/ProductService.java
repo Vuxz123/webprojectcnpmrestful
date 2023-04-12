@@ -1,11 +1,13 @@
 package com.ethnicthv.webprojectcnpmrestful.data.service;
 
 import com.ethnicthv.webprojectcnpmrestful.data.entity.Product;
+import com.ethnicthv.webprojectcnpmrestful.data.entity.io.ProductDeleted;
 import com.ethnicthv.webprojectcnpmrestful.data.repository.ProductRepository;
 import com.ethnicthv.webprojectcnpmrestful.util.IDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -36,22 +38,13 @@ public class ProductService {
         return productRepository.findAllByCategoryOrderById(category);
     }
 
-    public Product getProductById(long id) {
-        Optional<Product> product = productRepository.findById(id);
-        if (product.isPresent()) {
-            return product.get();
-        } else {
-            throw new RuntimeException("Product not found with id: " + id);
-        }
-    }
-
     public Product getProduct(long id) {
-        return productRepository.findOneById(id);
+        Optional<Product> product = productRepository.findById(id);
+        return product.orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
     }
 
     public List<String> getCategories() {
-        var list = productRepository.findAll();
-        return list.stream()
+        return productRepository.findAll().stream()
                 .map(Product::getCategory)
                 .distinct()
                 .toList();
@@ -72,7 +65,7 @@ public class ProductService {
     }
 
     public Product updateProduct(long id, Product updatedProduct) {
-        Product existingProduct = getProductById(id);
+        Product existingProduct = getProduct(id);
         existingProduct.setTitle(updatedProduct.getTitle());
         existingProduct.setDescription(updatedProduct.getDescription());
         existingProduct.setDiscountPercentage(updatedProduct.getDiscountPercentage());
@@ -112,4 +105,13 @@ public class ProductService {
         }
     }
 
+    public ProductDeleted deleteProduct(Long id) {
+        Optional<Product> product = productRepository.findById(id);
+        if(product.isPresent()) {
+            productRepository.deleteById(id);
+            return new ProductDeleted(product.get(), productRepository.existsById(id), Instant.now().toString());
+        }else {
+            return new ProductDeleted(false, Instant.now().toString());
+        }
+    }
 }
