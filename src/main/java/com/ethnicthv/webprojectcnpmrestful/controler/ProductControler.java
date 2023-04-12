@@ -20,8 +20,16 @@ import java.util.Map;
 @RestController
 @RequestMapping("/products")
 public class ProductControler {
+    Gson gson = new Gson();
     @Autowired
     private ProductService productService;
+
+    @GetMapping("/{{id: .+}}")
+    public ResponseEntity<String> getProduct(@PathVariable long id) {
+        Product product = productService.getProduct(id);
+        var productJson = gson.toJson(product);
+        return new ResponseEntity<>(productJson, HttpStatus.OK);
+    }
 
     @GetMapping("/con")
     public ResponseEntity<String> getProducts(@RequestParam(name = "limit", defaultValue = "40", required = false) int limit,
@@ -61,7 +69,6 @@ public class ProductControler {
         } else if(list.size() > skip) {
             list = list.subList(skip, list.size() - 1);
         }
-        Gson gson = new Gson();
         String productsJson = gson.toJson(list);
         return productsJson;
     }
