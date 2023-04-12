@@ -1,7 +1,6 @@
 package com.ethnicthv.webprojectcnpmrestful.controler;
 
 import com.ethnicthv.webprojectcnpmrestful.data.entity.Cart;
-import com.ethnicthv.webprojectcnpmrestful.data.repository.CartRepository;
 import com.ethnicthv.webprojectcnpmrestful.data.service.CartService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +15,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
+@SuppressWarnings("ALL")
 @RestController
 @RequestMapping("/carts")
 public class CartControler {
+    private final CartService cartService;
+
     @Autowired
-    private CartService cartService;
+    public CartControler(CartService cartService) {
+        this.cartService = cartService;
+    }
 
     @GetMapping("/num/{nume:.+}")
     public ResponseEntity<String> getCartNum(@PathVariable int nume) {

@@ -1,13 +1,10 @@
 package com.ethnicthv.webprojectcnpmrestful.controler;
 
-import com.ethnicthv.webprojectcnpmrestful.data.entity.Cart;
 import com.ethnicthv.webprojectcnpmrestful.data.entity.Product;
 import com.ethnicthv.webprojectcnpmrestful.data.service.ProductService;
 import com.google.gson.Gson;
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,14 +14,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("ALL")
 @RestController
 @RequestMapping("/products")
 public class ProductControler {
     Gson gson = new Gson();
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
-    @GetMapping("/{{id: .+}}")
+    @Autowired
+    public ProductControler(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping("/{id:.+}")
     public ResponseEntity<String> getProduct(@PathVariable long id) {
         Product product = productService.getProduct(id);
         var productJson = gson.toJson(product);

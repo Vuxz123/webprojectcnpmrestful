@@ -9,8 +9,12 @@ import java.util.List;
 
 @Service
 public class CartService {
+    private final CartRepository cartRepository;
+
     @Autowired
-    private CartRepository cartRepository;
+    public CartService(CartRepository cartRepository) {
+        this.cartRepository = cartRepository;
+    }
 
     public List<Cart> getCarts() {
         return cartRepository.findAll();

@@ -12,8 +12,12 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
+    private final ProductRepository productRepository;
+
     @Autowired
-    private ProductRepository productRepository;
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public void saveProduct(Product product) {
         if (productRepository.existsById(product.getId())) productRepository.deleteById(product.getId());
@@ -47,11 +51,10 @@ public class ProductService {
 
     public List<String> getCategories() {
         var list = productRepository.findAll();
-        var res_list = list.stream()
+        return list.stream()
                 .map(Product::getCategory)
                 .distinct()
                 .toList();
-        return res_list;
     }
 
     public List<Product> searchProducts(String query) {
@@ -90,35 +93,16 @@ public class ProductService {
             Product product = optionalProduct.get();
             fields.forEach((key, value) -> {
                 switch (key) {
-                    case "title":
-                        product.setTitle((String) value);
-                        break;
-                    case "description":
-                        product.setDescription((String) value);
-                        break;
-                    case "discountPercentage":
-                        product.setDiscountPercentage((Float) value);
-                        break;
-                    case "rating":
-                        product.setRating((Float) value);
-                        break;
-                    case "stock":
-                        product.setStock((Integer) value);
-                        break;
-                    case "brand":
-                        product.setBrand((String) value);
-                        break;
-                    case "category":
-                        product.setCategory((String) value);
-                        break;
-                    case "thumbnail":
-                        product.setThumbnail((String) value);
-                        break;
-                    case "images":
-                        product.setImages((String[]) value);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Invalid field: " + key);
+                    case "title" -> product.setTitle((String) value);
+                    case "description" -> product.setDescription((String) value);
+                    case "discountPercentage" -> product.setDiscountPercentage((Float) value);
+                    case "rating" -> product.setRating((Float) value);
+                    case "stock" -> product.setStock((Integer) value);
+                    case "brand" -> product.setBrand((String) value);
+                    case "category" -> product.setCategory((String) value);
+                    case "thumbnail" -> product.setThumbnail((String) value);
+                    case "images" -> product.setImages((String[]) value);
+                    default -> throw new IllegalArgumentException("Invalid field: " + key);
                 }
             });
             productRepository.save(product);
