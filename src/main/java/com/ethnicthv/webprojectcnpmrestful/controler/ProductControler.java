@@ -17,6 +17,7 @@ import java.util.Map;
 
 @SuppressWarnings("ALL")
 @RestController
+@CrossOrigin(origins = "https://localhost:3000")
 @RequestMapping("/products")
 public class ProductControler {
     Gson gson = new Gson();

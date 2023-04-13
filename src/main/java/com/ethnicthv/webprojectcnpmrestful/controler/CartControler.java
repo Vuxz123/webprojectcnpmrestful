@@ -16,6 +16,7 @@ import java.util.Map;
 
 @SuppressWarnings("ALL")
 @RestController
+@CrossOrigin(origins = "https://localhost:3000")
 @RequestMapping("/carts")
 public class CartControler {
     private final CartService cartService;
