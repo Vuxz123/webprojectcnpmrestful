@@ -1,4 +1,5 @@
 package com.ethnicthv.webprojectcnpmrestful.data.entity;
+
 import com.ethnicthv.webprojectcnpmrestful.data.entity.io.ProductInCart;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,7 +14,7 @@ public class Cart {
     @Id
     private long id;
     private List<ProductInCart> products;
-    private int total;
+    private float total;
     private float discountedTotal;
     private String userId;
     private int totalProducts;
@@ -38,8 +39,15 @@ public class Cart {
         this.totalQuantity = 0;
     }
 
-    public Cart() {
+    public void addProduct(ProductInCart productInCart) {
+        this.products.add(productInCart);
+        this.total += productInCart.getDiscountedPrice();
+        this.discountedTotal += productInCart.getPrice() - productInCart.getDiscountedPrice();
+        this.totalProducts = products.isEmpty() ? 0 : (int) this.products.stream().map(ProductInCart::getId).distinct().count();
+        this.totalQuantity += productInCart.getTotal();
+    }
 
+    public Cart() {
     }
 
     public long getId() {
@@ -58,11 +66,11 @@ public class Cart {
         this.products = products;
     }
 
-    public int getTotal() {
+    public float getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(float total) {
         this.total = total;
     }
 

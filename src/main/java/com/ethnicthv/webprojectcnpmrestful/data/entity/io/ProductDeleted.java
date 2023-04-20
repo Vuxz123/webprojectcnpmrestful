@@ -7,13 +7,13 @@ public class ProductDeleted extends Product {
     private String deletedOn;
 
     public ProductDeleted(Product product, boolean isDeleted, String deletedOn) {
-        super(product.getTitle(), product.getDescription(), product.getDiscountPercentage(), product.getRating(), product.getStock(), product.getBrand(), product.getCategory(), product.getThumbnail(), product.getImages());
+        super(product.getId(), product.getTitle(), product.getDescription(), product.getDiscountPercentage(), product.getRating(), product.getStock(), product.getBrand(), product.getCategory(), product.getThumbnail(), product.getImages(), product.getPrice());
         this.deletedOn = deletedOn;
         this.isDeleted = isDeleted;
     }
 
-    public ProductDeleted(String title, String description, float discountPercentage, float rating, int stock, String brand, String category, String thumbnail, String[] images, boolean isDeleted, String deletedOn) {
-        super(title, description, discountPercentage, rating, stock, brand, category, thumbnail, images);
+    public ProductDeleted(long id, String title, String description, float discountPercentage, float rating, int stock, String brand, String category, String thumbnail, String[] images, float price, boolean isDeleted, String deletedOn) {
+        super(id, title, description, discountPercentage, rating, stock, brand, category, thumbnail, images, price);
         this.isDeleted = isDeleted;
         this.deletedOn = deletedOn;
     }

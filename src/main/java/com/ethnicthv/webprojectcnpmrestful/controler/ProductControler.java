@@ -1,9 +1,13 @@
 package com.ethnicthv.webprojectcnpmrestful.controler;
 
 import com.ethnicthv.webprojectcnpmrestful.data.entity.Product;
+import com.ethnicthv.webprojectcnpmrestful.data.entity.Review;
 import com.ethnicthv.webprojectcnpmrestful.data.entity.io.ProductDeleted;
 import com.ethnicthv.webprojectcnpmrestful.data.service.ProductService;
+import com.ethnicthv.webprojectcnpmrestful.data.service.ReviewService;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +27,33 @@ import java.util.Map;
 public class ProductControler {
     Gson gson = new Gson();
     private final ProductService productService;
+    private final ReviewService reviewService;
+
+    private Logger logger = LoggerFactory.getLogger(ProductControler.class);
 
     @Autowired
-    public ProductControler(ProductService productService) {
+    public ProductControler(ProductService productService, ReviewService reviewService) {
         this.productService = productService;
+        this.reviewService = reviewService;
     }
+
+    //Review////////////////////////////////////
+
+    @GetMapping("/reviews/{id}")
+    public ResponseEntity<List<Review>> getReviews(@PathVariable long id) {
+        List<Review> reviews = reviewService.getReviews(id);
+        //if (reviews == null) reviews = new ArrayList<>(0);
+        logger.info("Get reviews: {} " + reviews, id);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
+    }
+
+    @PostMapping("/reviews")
+    public void createReviews(@RequestBody Review review) {
+        reviewService.saveReview(review);
+        logger.info("Create new review: " + review);
+    }
+
+    ////////////////////////////////////////////
 
     @GetMapping("/{id:.+}")
     public ResponseEntity<String> getProduct(@PathVariable long id) {

@@ -3,6 +3,7 @@ package com.ethnicthv.webprojectcnpmrestful.data.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 @Document(collection = "products")
@@ -20,7 +21,10 @@ public class Product {
     private String thumbnail;
     private String[] images;
 
-    public Product(String title, String description, float discountPercentage, float rating, int stock, String brand, String category, String thumbnail, String[] images) {
+    private float price;
+
+    public Product(long id, String title, String description, float discountPercentage, float rating, int stock, String brand, String category, String thumbnail, String[] images, float price) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.discountPercentage = discountPercentage;
@@ -30,6 +34,7 @@ public class Product {
         this.category = category;
         this.thumbnail = thumbnail;
         this.images = images;
+        this.price = price;
     }
 
     public Product() {
@@ -113,6 +118,34 @@ public class Product {
 
     public void setImages(String[] images) {
         this.images = images;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", discountPercentage=" + discountPercentage +
+                ", rating=" + rating +
+                ", stock=" + stock +
+                ", brand='" + brand + '\'' +
+                ", category='" + category + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", images=" + Arrays.toString(images) +
+                '}';
+    }
+
+    public void evaluateRating() {
+
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.ethnicthv.webprojectcnpmrestful.data.entity.io;
 
+import com.ethnicthv.webprojectcnpmrestful.data.entity.Product;
+
 import java.util.Objects;
 
 @SuppressWarnings("unused")
@@ -11,6 +13,16 @@ public class ProductInCart {
     private float total;
     private float discountPercentage;
     private float discountedPrice;
+
+    public ProductInCart(Product product, int quantity) {
+        this.id = product.getId();
+        this.title = product.getTitle();
+        this.price = product.getPrice();
+        this.quantity = quantity;
+        this.total = this.price * this.quantity;
+        this.discountPercentage = product.getDiscountPercentage();
+        this.discountedPrice = this.total * (100 - this.discountPercentage) / 100f;
+    }
 
     public ProductInCart(long id, String title, float price, int quantity, float total, float discountPercentage, float discountedPrice) {
         this.id = id;

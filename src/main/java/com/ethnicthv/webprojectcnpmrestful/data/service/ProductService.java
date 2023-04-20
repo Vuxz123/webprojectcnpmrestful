@@ -4,6 +4,8 @@ import com.ethnicthv.webprojectcnpmrestful.data.entity.Product;
 import com.ethnicthv.webprojectcnpmrestful.data.entity.io.ProductDeleted;
 import com.ethnicthv.webprojectcnpmrestful.data.repository.ProductRepository;
 import com.ethnicthv.webprojectcnpmrestful.util.IDUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import java.util.Optional;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
+    public static Logger logger = LoggerFactory.getLogger(ProductService.class);
 
     @Autowired
     public ProductService(ProductRepository productRepository) {

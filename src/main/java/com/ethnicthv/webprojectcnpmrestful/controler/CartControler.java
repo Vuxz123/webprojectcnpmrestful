@@ -1,9 +1,14 @@
 package com.ethnicthv.webprojectcnpmrestful.controler;
 
 import com.ethnicthv.webprojectcnpmrestful.data.entity.Cart;
+import com.ethnicthv.webprojectcnpmrestful.data.entity.Product;
 import com.ethnicthv.webprojectcnpmrestful.data.entity.io.CartDeleted;
+import com.ethnicthv.webprojectcnpmrestful.data.entity.io.ProductInCart;
 import com.ethnicthv.webprojectcnpmrestful.data.service.CartService;
+import com.ethnicthv.webprojectcnpmrestful.data.service.ProductService;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +24,14 @@ import java.util.Map;
 @CrossOrigin(origins = "https://localhost:3000")
 @RequestMapping("/carts")
 public class CartControler {
+    private Logger logger = LoggerFactory.getLogger(CartControler.class);
     private final CartService cartService;
+    private final ProductService productService;
 
     @Autowired
-    public CartControler(CartService cartService) {
+    public CartControler(CartService cartService, ProductService productService) {
         this.cartService = cartService;
+        this.productService = productService;
     }
 
     @GetMapping("")
@@ -43,6 +51,19 @@ public class CartControler {
     public ResponseEntity<Cart> getCartOfUser(@PathVariable String id) {
         Cart cart = cartService.getCartOfUser(id);
         return new ResponseEntity<>(cart, HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<String> addToCart(@RequestBody Map<String, Object> fields) {
+        System.out.println(fields.size());
+        System.out.println(fields.keySet());
+        Cart cart = cartService.getCartOfUser((String) fields.get("user_id"));
+        Product product = productService.getProduct((Integer) fields.get("product_id"));
+        ProductInCart productInCart = new ProductInCart(product, (Integer) fields.get("total"));
+        System.out.println(productInCart);
+        cart.addProduct(productInCart);
+        cartService.saveCart(cart);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
