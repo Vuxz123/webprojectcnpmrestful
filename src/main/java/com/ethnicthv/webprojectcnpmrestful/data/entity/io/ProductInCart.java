@@ -34,6 +34,10 @@ public class ProductInCart {
         this.discountedPrice = discountedPrice;
     }
 
+    public ProductInCart() {
+
+    }
+
     public long getId() {
         return id;
     }

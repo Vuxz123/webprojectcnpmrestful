@@ -22,7 +22,7 @@ import java.util.Map;
 
 @SuppressWarnings("ALL")
 @RestController
-@CrossOrigin(origins = "https://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/products")
 public class ProductControler {
     Gson gson = new Gson();

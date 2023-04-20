@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @SuppressWarnings("ALL")
 @RestController
-@CrossOrigin(origins = "https://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/image")
 public class ImageControler {
     private static final String UPLOAD_DIR = "images";

@@ -21,7 +21,7 @@ import java.util.Map;
 
 @SuppressWarnings("ALL")
 @RestController
-@CrossOrigin(origins = "https://localhost:3000")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/carts")
 public class CartControler {
     private Logger logger = LoggerFactory.getLogger(CartControler.class);
