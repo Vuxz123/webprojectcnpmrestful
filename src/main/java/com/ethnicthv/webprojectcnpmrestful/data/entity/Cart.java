@@ -1,6 +1,5 @@
 package com.ethnicthv.webprojectcnpmrestful.data.entity;
 
-import com.ethnicthv.webprojectcnpmrestful.data.entity.io.ProductInCart;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

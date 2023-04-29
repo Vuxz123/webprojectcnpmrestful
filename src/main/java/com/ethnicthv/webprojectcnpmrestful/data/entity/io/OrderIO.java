@@ -1,14 +1,14 @@
-package com.ethnicthv.webprojectcnpmrestful.data.entity;
+package com.ethnicthv.webprojectcnpmrestful.data.entity.io;
+
+import com.ethnicthv.webprojectcnpmrestful.data.entity.Order;
+import com.ethnicthv.webprojectcnpmrestful.data.entity.OrderState;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
-import com.ethnicthv.webprojectcnpmrestful.util.IDUtils;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "orders")
-public class Order {
+public class OrderIO {
     @Id
     private Long id;
 
@@ -22,19 +22,20 @@ public class Order {
 
     private OrderState state;
 
-    private Map<Product, Integer> products;
+    private Map<Long, Integer> products;
 
-    public Order(String customer_id, String dest, String src, LocalDateTime orderDate, OrderState state, Map<Product, Integer> products) {
-        this.id = IDUtils.getID();
-        this.customer_id = customer_id;
-        this.dest = dest;
-        this.src = src;
-        this.orderDate = orderDate;
-        this.state = state;
-        this.products = products;
+    public OrderIO(Order order) {
+        this.id = order.getId();
+        this.customer_id = order.getCustomer_id();
+        this.dest = order.getDest();
+        this.src = order.getSrc();
+        this.orderDate = order.getOrderDate();
+        this.state = order.getState();
+        this.products = new HashMap<>();
+        order.getProducts().forEach((product, integer) -> products.put(product.getId(), integer));
     }
 
-    public Order(Long id, String customer_id, String dest, String src, LocalDateTime orderDate, OrderState state, Map<Product, Integer> products) {
+    public OrderIO(Long id, String customer_id, String dest, String src, LocalDateTime orderDate, OrderState state, Map<Long, Integer> products) {
         this.id = id;
         this.customer_id = customer_id;
         this.dest = dest;
@@ -42,9 +43,6 @@ public class Order {
         this.orderDate = orderDate;
         this.state = state;
         this.products = products;
-    }
-
-    public Order() {
     }
 
     public Long getId() {
@@ -95,11 +93,12 @@ public class Order {
         this.state = state;
     }
 
-    public Map<Product, Integer> getProducts() {
+    public Map<Long, Integer> getProducts() {
         return products;
     }
 
-    public void setProducts(Map<Product, Integer> products) {
+    public void setProducts(Map<Long, Integer> products) {
         this.products = products;
     }
 }
+
