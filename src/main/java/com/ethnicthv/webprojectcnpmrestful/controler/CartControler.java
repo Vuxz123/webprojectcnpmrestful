@@ -3,7 +3,7 @@ package com.ethnicthv.webprojectcnpmrestful.controler;
 import com.ethnicthv.webprojectcnpmrestful.data.entity.Cart;
 import com.ethnicthv.webprojectcnpmrestful.data.entity.Product;
 import com.ethnicthv.webprojectcnpmrestful.data.entity.io.CartDeleted;
-import com.ethnicthv.webprojectcnpmrestful.data.entity.io.ProductInCart;
+import com.ethnicthv.webprojectcnpmrestful.data.entity.ProductInCart;
 import com.ethnicthv.webprojectcnpmrestful.data.service.CartService;
 import com.ethnicthv.webprojectcnpmrestful.data.service.ProductService;
 import com.google.gson.Gson;

@@ -144,10 +144,6 @@ public class Product {
                 '}';
     }
 
-    public void evaluateRating() {
-
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

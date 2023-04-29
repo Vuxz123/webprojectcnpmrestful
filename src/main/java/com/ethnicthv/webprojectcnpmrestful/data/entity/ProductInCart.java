@@ -1,11 +1,9 @@
-package com.ethnicthv.webprojectcnpmrestful.data.entity.io;
-
-import com.ethnicthv.webprojectcnpmrestful.data.entity.Product;
+package com.ethnicthv.webprojectcnpmrestful.data.entity;
 
 import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class ProductInCart {
+public class ProductInCart{
     private long id;
     private String title;
     private float price;

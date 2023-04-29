@@ -2,7 +2,7 @@ package com.ethnicthv.webprojectcnpmrestful.data.service;
 
 import com.ethnicthv.webprojectcnpmrestful.data.entity.Cart;
 import com.ethnicthv.webprojectcnpmrestful.data.entity.io.CartDeleted;
-import com.ethnicthv.webprojectcnpmrestful.data.entity.io.ProductInCart;
+import com.ethnicthv.webprojectcnpmrestful.data.entity.ProductInCart;
 import com.ethnicthv.webprojectcnpmrestful.data.repository.CartRepository;
 import com.ethnicthv.webprojectcnpmrestful.util.IDUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -84,12 +84,14 @@ public class CartService {
             if (jsonNode.has("products")) {
                 if (jsonNode.has("merge") && objectMapper.convertValue(jsonNode.get("merge"), new TypeReference<Boolean>() {})) {
                     List<ProductInCart> products = cartToUpdate.getProducts();
-                    List<ProductInCart> updated_products = objectMapper.convertValue(jsonNode.get("products"), new TypeReference<List<ProductInCart>>() {});
+                    List<ProductInCart> updated_products = objectMapper.convertValue(jsonNode.get("products"), new TypeReference<>() {
+                    });
                     products.addAll(updated_products);
                     products = products.stream().distinct().toList();
                     cartToUpdate.setProducts(products);
                 } else {
-                    List<ProductInCart> products = objectMapper.convertValue(jsonNode.get("products"), new TypeReference<List<ProductInCart>>() {});
+                    List<ProductInCart> products = objectMapper.convertValue(jsonNode.get("products"), new TypeReference<>() {
+                    });
                     cartToUpdate.setProducts(products);
                 }
             }
