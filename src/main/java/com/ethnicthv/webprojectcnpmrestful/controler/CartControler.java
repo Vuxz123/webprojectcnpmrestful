@@ -72,10 +72,16 @@ public class CartControler {
         return new ResponseEntity<>(updatedCart, HttpStatus.OK);
     }
 
-    // PATCH method to update some fields of cart
     @PatchMapping("/{id}")
     public ResponseEntity<Cart> partialUpdateCart(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
         Cart updatedCart = cartService.partialUpdateCart(id, fields);
+        return new ResponseEntity<>(updatedCart, HttpStatus.OK);
+    }
+
+    @RequestMapping("/delete/{userId}/{id}")
+    public ResponseEntity<Cart> deleteProcduct(@PathVariable String userId, @PathVariable Long id) {
+        Cart updatedCart = cartService.getCartOfUser(userId);
+        updatedCart.deleteProduct(id);
         return new ResponseEntity<>(updatedCart, HttpStatus.OK);
     }
 

@@ -1,10 +1,16 @@
 package com.ethnicthv.webprojectcnpmrestful.data.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SellerProductList {
     private String userId;
     private List<Product> products;
+
+    public SellerProductList(String userId) {
+        this.userId = userId;
+        this.products = new ArrayList<>();
+    }
 
     public SellerProductList(String userId, List<Product> products) {
         this.userId = userId;

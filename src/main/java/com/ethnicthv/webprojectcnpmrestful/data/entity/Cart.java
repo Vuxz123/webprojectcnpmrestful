@@ -38,6 +38,18 @@ public class Cart {
         this.totalQuantity = 0;
     }
 
+    public void deleteProduct(Long id) {
+        var optional = this.products.stream().filter((productInCart1 -> productInCart1.getId() == id)).findFirst();
+        if(optional.isPresent()) {
+            var productInCart = optional.get();
+            this.products.remove(productInCart);
+            this.total -= productInCart.getDiscountedPrice();
+            this.discountedTotal -= productInCart.getPrice() - productInCart.getDiscountedPrice();
+            this.totalProducts = products.isEmpty() ? 0 : (int) this.products.stream().map(ProductInCart::getId).distinct().count();
+            this.totalQuantity -= productInCart.getTotal();
+        }
+    }
+
     public void addProduct(ProductInCart productInCart) {
         this.products.add(productInCart);
         this.total += productInCart.getDiscountedPrice();

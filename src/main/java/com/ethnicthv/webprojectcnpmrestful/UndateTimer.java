@@ -31,6 +31,7 @@ public class UndateTimer {
     public void updateRating() {
         logger.info("Start updating rating!");
         List<Review> reviews = reviewService.getUpdatedReviews();
+        logger.info(reviews.toString());
         if(reviews == null || reviews.isEmpty()) {
             logger.info("Nothing to update!");
             return;

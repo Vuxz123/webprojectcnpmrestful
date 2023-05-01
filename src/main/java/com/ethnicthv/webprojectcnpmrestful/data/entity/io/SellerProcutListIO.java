@@ -10,8 +10,10 @@ public class SellerProcutListIO {
 
     @Id
     private String userId;
-
     private List<Long> productIds;
+
+    public SellerProcutListIO() {
+    }
 
     public SellerProcutListIO(SellerProductList list) {
         userId = list.getUserId();

@@ -4,7 +4,6 @@ import com.ethnicthv.webprojectcnpmrestful.data.entity.Product;
 import com.ethnicthv.webprojectcnpmrestful.data.entity.SellerProductList;
 import com.ethnicthv.webprojectcnpmrestful.data.entity.io.SellerProcutListIO;
 import com.ethnicthv.webprojectcnpmrestful.data.repository.SellerDataRepository;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,8 +59,8 @@ public class SellerService {
         return null;
     }
 
-    @NotNull
-    private SellerProductList convertToSellerProductList(@NotNull SellerProcutListIO sellerProcutListIO) {
+    private SellerProductList convertToSellerProductList( SellerProcutListIO sellerProcutListIO) {
+        if (sellerProcutListIO == null) return null;
         List<Long> productIds = sellerProcutListIO.getProductIds();
         List<Product> products = productIds.stream()
                 .map(productService::getProduct)

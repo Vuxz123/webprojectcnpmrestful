@@ -20,7 +20,6 @@ public class Product {
     private String category;
     private String thumbnail;
     private String[] images;
-
     private float price;
 
     public Product(long id, String title, String description, float discountPercentage, float rating, int stock, String brand, String category, String thumbnail, String[] images, float price) {

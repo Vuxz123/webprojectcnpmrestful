@@ -104,6 +104,7 @@ public class Review {
                 ", description='" + description + '\'' +
                 ", images='" + images + '\'' +
                 ", productId=" + productId +
+                ", updated=" + updated +
                 '}';
     }
 }
